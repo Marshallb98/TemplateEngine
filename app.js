@@ -8,7 +8,7 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-let employeeInfo = []
+let employees = []
 const render = require("./lib/htmlRenderer");
 function newTeamMember() {
     inquirer.prompt(
@@ -34,15 +34,16 @@ function newTeamMember() {
             else if (data.type === 'Manager') {
                 manager();
             }
-            else if (data.type === 'All Done!') {
-                fs.writeFileSync(outputPath, render(employeeInfo), "utf-8");
-                console.log(employeeInfo);
+            else if (data.type === 'Generate Page') {
+                fs.writeFileSync(outputPath, render(employees), "utf-8");
+                console.log(employees);
             }
-
-
+            
+            
         })
-}
-
+    }
+    
+    newTeamMember()
 
 const engineer = () =>
     inquirer.prompt(
@@ -71,7 +72,7 @@ const engineer = () =>
         ])
         .then((data) => {
             const engineer = new Engineer(data.engineer, data.id, data.email, data.github)
-            employeeInfo.push(engineer);
+            employees.push(engineer);
             newTeamMember();
         }
         )
@@ -104,7 +105,7 @@ const intern = () =>
         ])
         .then((data) => {
             const intern = new Intern(data.intern, data.id, data.email, data.school)
-            employeeInfo.push(intern);
+            employees.push(intern);
             newTeamMember();
 
         })
@@ -136,10 +137,9 @@ const manager = () =>
         ])
         .then((data) => {
             const manager = new Manager(data.manager, data.id, data.email, data.number)
-            employeeInfo.push(manager);
+            employees.push(manager);
             newTeamMember();
         })
-
 
 
 
