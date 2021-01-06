@@ -77,7 +77,68 @@ const engineer = () =>
         )
 
 
+const intern = () =>
+    inquirer.prompt(
+        [
 
+            {
+                type: 'input',
+                name: 'intern',
+                message: 'What is your name?'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'What is your employee ID?'
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'What is your email?'
+            },
+            {
+                type: 'input',
+                name: 'school',
+                message: 'What is the name of the school you are attending?'
+            }
+        ])
+        .then((data) => {
+            const intern = new Intern(data.intern, data.id, data.email, data.school)
+            employeeInfo.push(intern);
+            newTeamMember();
+
+        })
+
+
+const manager = () =>
+    inquirer.prompt(
+        [
+            {
+                type: 'input',
+                name: 'manager',
+                message: 'What is your name?'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: "What is your employee ID?"
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'What is your email?'
+            },
+            {
+                type: 'input',
+                name: 'number',
+                message: 'What is your office number?'
+            }
+        ])
+        .then((data) => {
+            const manager = new Manager(data.manager, data.id, data.email, data.number)
+            employeeInfo.push(manager);
+            newTeamMember();
+        })
 
 
 
