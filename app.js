@@ -8,9 +8,40 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+let employeeInfo = []
 const render = require("./lib/htmlRenderer");
+function newTeamMember() {
+    inquirer.prompt(
+        [
+            {
+                type: 'list',
+                name: 'type',
+                message: 'What role are you in this team?',
+                choices: [
+                    'Engineer',
+                    'Intern',
+                    'Manager',
+                    'Generate Page'
+                ]
+            }])
+        .then((data) => {
+            if (data.type === 'Engineer') {
+                engineer()
+            }
+            else if (data.type === 'Intern') {
+                intern();
+            }
+            else if (data.type === 'Manager') {
+                manager();
+            }
+            else if (data.type === 'All Done!') {
+                fs.writeFileSync(outputPath, render(employeeInfo), "utf-8");
+                console.log(employees);
+            }
 
 
+        })
+}
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
