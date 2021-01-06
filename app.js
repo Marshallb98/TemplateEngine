@@ -36,12 +36,52 @@ function newTeamMember() {
             }
             else if (data.type === 'All Done!') {
                 fs.writeFileSync(outputPath, render(employeeInfo), "utf-8");
-                console.log(employees);
+                console.log(employeeInfo);
             }
 
 
         })
 }
+
+
+const engineer = () =>
+    inquirer.prompt(
+        [
+
+            {
+                type: 'input',
+                name: 'engineer',
+                message: 'What is your name?'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'What is your employee ID?'
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'What is your email?'
+            },
+            {
+                type: 'input',
+                name: 'github',
+                message: 'What is your github profile URL?'
+            }
+        ])
+        .then((data) => {
+            const engineer = new Engineer(data.engineer, data.id, data.email, data.github)
+            employeeInfo.push(engineer);
+            newTeamMember();
+        }
+        )
+
+
+
+
+
+
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
